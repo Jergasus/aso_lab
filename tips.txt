@@ -1,1 +1,63 @@
-hola que tal
+OS Installation:
+- lspci
+- lsusb
+Nos permiten identificar los dispositivos directamente conectados al bus PCI y USB
+
+Remember that devices are generally stored into the /dev directory. Take into consideration that the new flash drives using the NVME standard are attached to /dev/nvme? endpoint, where ? is an integer representing the device controller registered number, which starts at 0. Then, /dev/nvme0n? stands for the first NVME device’s namespace, which starts at 1. And finally, /dev/nvme0n1p? stands for the partition number of the particular device. A device name example would be /dev/nvme0n1p1. 
+Also consider that legacy harddrives connected to the SATA bus follow the naming convention of sd (as of SATA1 Disk), while sorting the drive names alphabetically: a for the first disk, b for the second, . . . down to zz. Consequently, the third SATA harddrive on a system will have the device name of /dev/sdc.
+
+Partitions:
+Ubuntu automatically mounts all external drives when plugged in, this may lead to issues later during the lab, as the disk already has some partitions. It is strongly recommended to umount all the external drives before continuing. To do so run:
+- umount /dev/usb* (usb puede ser sda, sdb, ...)
+Para particionar el disco:
+- gdisk /dev/usb (sda, sdb, ...)
+
+Partition table:
+/dev/usb1 EFI System Partition (ESP) (EF00) 512MB /boot/efi This partition will hold the necesary EFI Boot information. It MUST be formatted with FAT32 (vfat) filesystem
+/dev/usb2 Linux (8304) 30GB+ / This partition will hold the main system, a typical Debian installation requires around 5GB, however, when we add more software it may grow considerably. Use at least 30Gb
+/dev/usb3 Linux (8300) 5GB /usr/local We don’t use too much this partition during the course, with 5GB it should be enough, in a real system it depends on the actual requirements regarding selfcompiled applications
+/dev/usb4 Linux (8302) 100GB+ /home This one in general is where most space should be devoted. You can put 100GB or more
+/dev/usb5 Swap(8200) 2xRAM Put twice the size of the machine’s RAM
+/dev/usb6 Linux (8300) 20GB Reserved for future use, you don’t need to create it now
+
+Disk configuration:
+-> Swap Area:
+- mkswap /dev/usb
+-> Linux FileSystem
+- mkfs -t fstype /dev/sub (fstype = ext4, btrfs, vfat, ...)
+Currently the de facto standard in Linux systems is ext4, use this one when creating the filesystems
+
+Mounting:
+Now we have to mount the filesystems in a new temporary directory to be able to install the software. Let’s create the mount points for the installation, using a new directory:
+- mkdir /linux
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
