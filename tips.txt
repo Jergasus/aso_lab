@@ -27,13 +27,26 @@ Disk configuration:
 - mkfs -t fstype /dev/sub (fstype = ext4, btrfs, vfat, ...)
 Currently the de facto standard in Linux systems is ext4, use this one when creating the filesystems
 
-Mounting:
+Mounting the filesystems:
 Now we have to mount the filesystems in a new temporary directory to be able to install the software. Let’s create the mount points for the installation, using a new directory:
 - mkdir /linux
+And now we will mount all filesystems inside such a mount point (/linux), creating the appropriate directories inside, at the same time. Don’t forget /boot/efi as it will be required to boot the new system.
+- mount partition directory
+For instance, / partition into /linux, /home partition into /linux/home, etc.). It is important to create the directories after mounting /linux but before mounting the rest.
 
-
-
-
+Installation of the base system:
+In our case, we will install from a prepackaged system image that is in the ASO SFTP server: asoserver.pc.ac.upc.edu You will have to decompress it into the USB disk. cd into the filesystem that will become the root (/) of your new installation (remember, mounted on /linux):
+- cd /linux
+And now get the image:
+- sftp aso@asoserver.pc.ac.upc.edu
+Use the following password: AsORoCkSHaRd!
+From there you can download (using the command get) the file /packages/aso-install.tar.gz
+- get /packages/aso-install.tar.gz
+Esto pondra el archivo en el directorio actual. Lo puedo mover con un mv
+Untar de file:
+- tar xzf aso-install.tar.gz
+Now look at the contents of the /linux directory. You should see that it has been populated with the basic components of your future system. Optionally we can erase the downloaded file by running:
+- rm aso-install.tar.gz
 
 
 
