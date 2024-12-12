@@ -48,8 +48,12 @@ Untar de file:
 Now look at the contents of the /linux directory. You should see that it has been populated with the basic components of your future system. Optionally we can erase the downloaded file by running:
 - rm aso-install.tar.gz
 
-
-
+Finish mounting auxiliary systems:
+We also have to bind-mount the directories /dev, /sys, and /proc inside /linux, to temporarily expose the current existing devices to the new system. To do that, use the following command:
+-  for i in /dev /dev/pts /proc /sys /run; do
+> mount -B $i /linux/$i
+> done
+Use the mount command without any parameters to see which filesystems are mounted, and verify that all USB disk partitions are mounted correctly in the appropriate directories, including the /dev directory with the system device files.
 
 
 
