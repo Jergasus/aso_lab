@@ -73,9 +73,42 @@ to the new system. To do that, use the following command:
 Use the mount command without any parameters to see which filesystems are mounted, and verify that all USB disk partitions
 are mounted correctly in the appropriate directories, including the /dev directory with the system device files.
 
+Basic system configuration:
+During the installation process, only the ’vi’ editor will be available in most cases
+Configuring the file systems table: (/etc/fstab)
+In order for the file systems to be mounted correctly at system power-on, you need to generate a correct
+/etc/fstab file. To do this edit the file and make sure that the following parts exist:
+Add your swap partition:
+device none swap defaults 0 0
+• Add root partition:
+device / ext4 defaults 0 1
+• Add the rest of filesystems you created previously:
+device mountpoint fstype defaults 0 2
+Changing root directory:
+At this point, you can change the root directory of your system, and temporarily use the software that
+you installed in the system, instead of the one currently available on the system. To change the root of
+your system, use:
+- chroot /linux
+-> chroot: Esto significa que el proceso que ejecutas con chroot y cualquier programa que inicie dentro de él no podrán ver ni
+acceder a archivos fuera del nuevo directorio raíz (a menos que haya enlaces o permisos especiales).
+Ejemplo:
+- sudo chroot /mnt/chroot
+Ahora, dentro de ese entorno, /mnt/chroot actúa como /. Si intentas navegar a cualquier otro lugar, estarás limitado a los archivos dentro de ese directorio.
+From this point on, you can use the system we have installed, and access for example manual pages with the command man.
 
+Configuring the keyboard:
+In Debian, the keyboard layout is configured by running:
+- dpkg-reconfigure locales
+- dpkg-reconfigure console-data
+- dpkg-reconfigure keyboard-configuration
+In the locales configuration make sure you select a suitable locale for your machine, by searching
+for it and pressing <Spacebar> to select it.
 
+dpkg-reconfigure locales: Configura idioma y formatos regionales.
+dpkg-reconfigure console-data: Configura el diseño del teclado para la consola. (qwerty/es)
+dpkg-reconfigure keyboard-configuration: Configura el diseño del teclado globalmente
 
+Configuring the boot process:
 
 
 
