@@ -2,7 +2,7 @@ sk-proj-t-xdWLOuSyXBFiig7poTyD8OuBZnCjY2QjnPXy3f7AlMVmjhUT99CtQPZFTh
 
 -ybGy0Euxal4XWT3BlbkFJa1BBZJ4qimPQmWlSEezns28_24
 
-n6oNmgU_kgdHA7_S4w0luxKtPD3YKGk94t_613uN3J
+n6oNmgU_kgdHA7_S4w0luxKtPD3YKGk94t_613uN3JyHdZQA
 
 git clone https://github.com/aandrew-me/tgpt.git
 cd tgpt
